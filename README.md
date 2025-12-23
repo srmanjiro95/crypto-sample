@@ -1,87 +1,113 @@
-# Welcome to React Router!
+# 🪙 Crypto Dashboard
 
-A modern, production-ready template for building full-stack React applications using React Router.
+A simple and dynamic cryptocurrency dashboard built with **React Router (Framework mode)** and **TypeScript**, inspired by Remix v2 data APIs.  
+It displays real-time crypto prices from the **Coinbase public API**, allowing users to filter, reorder, and personalize their dashboard.
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/remix-run/react-router-templates/tree/main/default)
-
-## Features
-
-- 🚀 Server-side rendering
-- ⚡️ Hot Module Replacement (HMR)
-- 📦 Asset bundling and optimization
-- 🔄 Data loading and mutations
-- 🔒 TypeScript by default
-- 🎉 TailwindCSS for styling
-- 📖 [React Router docs](https://reactrouter.com/)
-
-## Getting Started
-
-### Installation
-
-Install the dependencies:
-
-```bash
-npm install
-```
-
-### Development
-
-Start the development server with HMR:
-
-```bash
-npm run dev
-```
-
-Your application will be available at `http://localhost:5173`.
-
-## Building for Production
-
-Create a production build:
-
-```bash
-npm run build
-```
-
-## Deployment
-
-### Docker Deployment
-
-To build and run using Docker:
-
-```bash
-docker build -t my-app .
-
-# Run the container
-docker run -p 3000:3000 my-app
-```
-
-The containerized application can be deployed to any platform that supports Docker, including:
-
-- AWS ECS
-- Google Cloud Run
-- Azure Container Apps
-- Digital Ocean App Platform
-- Fly.io
-- Railway
-
-### DIY Deployment
-
-If you're familiar with deploying Node applications, the built-in app server is production-ready.
-
-Make sure to deploy the output of `npm run build`
-
-```
-├── package.json
-├── package-lock.json (or pnpm-lock.yaml, or bun.lockb)
-├── build/
-│   ├── client/    # Static assets
-│   └── server/    # Server-side code
-```
-
-## Styling
-
-This template comes with [Tailwind CSS](https://tailwindcss.com/) already configured for a simple default starting experience. You can use whatever CSS framework you prefer.
+This project was built as a technical demo focusing on clean architecture, SSR, and modern React patterns.
 
 ---
 
-Built with ❤️ using React Router.
+## 🚀 Tech Stack
+
+- ⚛️ **React + TypeScript**
+- 🧭 **React Router (Framework / Data APIs)**  
+  Using loaders, actions, and SSR (successor of Remix v2 concepts)
+- 🎨 **Tailwind CSS v4 (CSS-first)**
+- 🖱️ **@dnd-kit** for drag & drop reordering
+- 🌐 **Coinbase Public API** for real-time prices
+- 🧪 **Vitest + Testing Library** for unit tests
+- 🍪 Cookie-based sessions for authentication
+
+> React Router framework supersedes Remix v2 while keeping the same mental model: loaders, actions, and server-side rendering.
+
+---
+
+## ✨ Features
+
+### 📊 Real-time Crypto Dashboard
+- Displays at least 10 cryptocurrencies (BTC, ETH, SOL, ADA, etc.)
+- Shows:
+  - USD price
+  - BTC conversion rate
+- Data fetched on the server using loaders.
+
+### 🔄 Drag & Drop Reordering
+- Reorder cards via drag & drop.
+- Order is persisted in **localStorage** during the session.
+
+### 🔍 Filtering
+- Filter cryptos by name or symbol in real time.
+
+### 🌗 Dark / Light Mode
+- Toggle between light and dark themes.
+- Implemented using Tailwind v4 with class-based dark mode.
+- Theme preference stored in **localStorage**.
+
+### 💾 Persistence
+- Card order → localStorage  
+- Theme → localStorage
+
+### 🔐 Authentication (Demo Session)
+- Cookie-based session auth using React Router actions.
+- Routes are protected on the server.
+- Includes login & logout flow.
+
+**Dummy credentials:**
+
+# 🪙 Crypto Dashboard
+
+A simple and dynamic cryptocurrency dashboard built with **React Router (Framework mode)** and **TypeScript**, inspired by Remix v2 data APIs.  
+It displays real-time crypto prices from the **Coinbase public API**, allowing users to filter, reorder, and personalize their dashboard.
+
+This project was built as a technical demo focusing on clean architecture, SSR, and modern React patterns.
+
+---
+
+## 🚀 Tech Stack
+
+- ⚛️ **React + TypeScript**
+- 🧭 **React Router (Framework / Data APIs)**  
+  Using loaders, actions, and SSR (successor of Remix v2 concepts)
+- 🎨 **Tailwind CSS v4 (CSS-first)**
+- 🖱️ **@dnd-kit** for drag & drop reordering
+- 🌐 **Coinbase Public API** for real-time prices
+- 🧪 **Vitest + Testing Library** for unit tests
+- 🍪 Cookie-based sessions for authentication
+
+> React Router framework supersedes Remix v2 while keeping the same mental model: loaders, actions, and server-side rendering.
+
+---
+
+## ✨ Features
+
+### 📊 Real-time Crypto Dashboard
+- Displays at least 10 cryptocurrencies (BTC, ETH, SOL, ADA, etc.)
+- Shows:
+  - USD price
+  - BTC conversion rate
+- Data fetched on the server using loaders.
+
+### 🔄 Drag & Drop Reordering
+- Reorder cards via drag & drop.
+- Order is persisted in **localStorage** during the session.
+
+### 🔍 Filtering
+- Filter cryptos by name or symbol in real time.
+
+### 🌗 Dark / Light Mode
+- Toggle between light and dark themes.
+- Implemented using Tailwind v4 with class-based dark mode.
+- Theme preference stored in **localStorage**.
+
+### 💾 Persistence
+- Card order → localStorage  
+- Theme → localStorage
+
+### 🔐 Authentication (Demo Session)
+- Cookie-based session auth using React Router actions.
+- Routes are protected on the server.
+- Includes login & logout flow.
+
+**Dummy credentials:**
+Email: demo@crypto.com
+Password: demo
