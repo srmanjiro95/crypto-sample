@@ -2,7 +2,7 @@ import { useLoaderData, useNavigation } from "react-router";
 import type { Route } from "./+types/home";
 
 import { CRYPTOS } from "~/data/cryptos";
-import { fetchUsd } from "~/services/coinbase.server";
+import { fetchUsdRedisCached } from "~/services/cache/redis.cache";
 import type { CryptoCardData, CryptoSymbol } from "~/types/crypto";
 import { Dashboard } from "~/components/Dashboard";
 import { RouteError } from "~/components/RouteError";
@@ -10,13 +10,12 @@ import { requireUser } from "~/utils/session.server";
 
 export async function loader({ request }: Route.LoaderArgs) {
   await requireUser(request);
+
   const symbols = CRYPTOS.map((c) => c.symbol) as CryptoSymbol[];
 
-  const prices = await Promise.all(
-    symbols.map(async (s) => [s, await fetchUsd(s)] as const)
-  );
+  // 🔥 Redis snapshot (shared across instances)
+  const priceMap = await fetchUsdRedisCached(symbols);
 
-  const priceMap = Object.fromEntries(prices) as Record<CryptoSymbol, number>;
   const btcUsd = priceMap.BTC;
 
   const cards: CryptoCardData[] = CRYPTOS.map((c) => {
@@ -27,18 +26,11 @@ export async function loader({ request }: Route.LoaderArgs) {
       btc: c.symbol === "BTC" ? 1 : usd / btcUsd,
     };
   });
-
-  const fetchedAt = new Date().toISOString();
-
-  const formattedFetchedAt = new Intl.DateTimeFormat("es-MX", {
-    dateStyle: "short",
-    timeStyle: "medium",
-  }).format(new Date(fetchedAt));
+  const fetchedAt = Date.now();
 
   return {
     cards,
-    fetchedAt,
-    formattedFetchedAt,
+    fetchedAt
   };
 }
 
