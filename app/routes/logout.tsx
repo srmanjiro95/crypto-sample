@@ -1,6 +1,12 @@
-import type { ActionFunctionArgs } from "react-router";
-import { logout } from "~/utils/session.server";
+import { useEffect } from "react";
+import { useNavigate } from "react-router";
 
-export async function action({ request }: ActionFunctionArgs) {
-  return logout(request);
+export default function Logout() {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    navigate("/login");
+  }, [navigate]);
+
+  return null;
 }
