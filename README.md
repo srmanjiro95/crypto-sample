@@ -1,57 +1,37 @@
-# 🪙 Crypto Dashboard
+# 🥊 Gym Admin UI
 
-A simple and dynamic cryptocurrency dashboard built with **React Router (Framework mode)** and **TypeScript**, inspired by Remix v2 data APIs.  
-It displays real-time crypto prices from the **Coinbase public API**, allowing users to filter, reorder, and personalize their dashboard.
+Base de proyecto para un panel administrativo de gimnasio, construido con **React Router (Framework mode)** y **TypeScript**.  
+Este front-end prioriza una estructura modular con formularios listos para conectarse a **FastAPI** y flujos en tiempo real (WebSocket + Redis).
 
-This project was built as a technical demo focusing on clean architecture, SSR, and modern React patterns.
-
----
-
-## 🚀 Tech Stack
+## 🚀 Stack
 
 - ⚛️ **React + TypeScript**
-- 🧭 **React Router (Framework / Data APIs)**  
-  Using loaders, actions, and SSR (successor of Remix v2 concepts)
-- 🎨 **Tailwind CSS v4 (CSS-first)**
-- 🖱️ **@dnd-kit** for drag & drop reordering
-- 🌐 **Coinbase Public API** for real-time prices
-- 🧪 **Vitest + Testing Library** for unit tests
-- 🍪 Cookie-based sessions for authentication
+- 🧭 **React Router (Framework / Data APIs)**
+- 🎨 **Tailwind CSS v4**
+- 🧪 **Vitest + Testing Library**
 
-> React Router framework supersedes Remix v2 while keeping the same mental model: loaders, actions, and server-side rendering.
+## ✅ Qué incluye la UI
+
+- Login administrativo.
+- Módulos de administración:
+  - Usuarios internos.
+  - Roles y permisos.
+- Catálogos en tiempo real:
+  - Membresías.
+  - Productos de inventario.
+- Operación de gimnasio:
+  - Registro de miembros.
+  - Ingresos con QR.
+  - Record personal.
+  - Ventas.
+  - Membresías activas.
+  - Planes de desarrollo.
+
+## 🔌 Integración con FastAPI
+
+Los formularios ya envían datos mediante acciones de React Router.  
+La capa `services/gymApi.ts` está preparada para reemplazar las simulaciones por llamadas reales a FastAPI.
 
 ---
 
-## ✨ Features
-
-### 📊 Real-time Crypto Dashboard
-- Displays at least 10 cryptocurrencies (BTC, ETH, SOL, ADA, etc.)
-- Shows:
-  - USD price
-  - BTC conversion rate
-- Data fetched on the server using loaders.
-
-### 🔄 Drag & Drop Reordering
-- Reorder cards via drag & drop.
-- Order is persisted in **localStorage** during the session.
-
-### 🔍 Filtering
-- Filter cryptos by name or symbol in real time.
-
-### 🌗 Dark / Light Mode
-- Toggle between light and dark themes.
-- Implemented using Tailwind v4 with class-based dark mode.
-- Theme preference stored in **localStorage**.
-
-### 💾 Persistence
-- Card order → localStorage  
-- Theme → localStorage
-
-### 🔐 Authentication (Demo Session)
-- Cookie-based session auth using React Router actions.
-- Routes are protected on the server.
-- Includes login & logout flow.
-
-**Dummy credentials:**
-Email: demo@crypto.com
-Password: demo
+> Copia la estructura base y adapta los módulos según tus necesidades.
