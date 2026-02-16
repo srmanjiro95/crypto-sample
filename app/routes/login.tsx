@@ -1,23 +1,12 @@
-import { Form, useActionData } from "react-router";
-import type { ActionFunctionArgs } from "react-router";
+import { useNavigate } from "react-router";
 import { useEffect, useState } from "react";
-import { createUserSession } from "~/utils/session.server";
-
-export async function action({ request }: ActionFunctionArgs) {
-  const formData = await request.formData();
-  const email = formData.get("email");
-  const password = formData.get("password");
-
-  if (email !== "demo@crypto.com" || password !== "demo") {
-    return { error: "Invalid credentials" };
-  }
-
-  return createUserSession(String(email), "/");
-}
+import type { FormEvent } from "react";
 
 export default function Login() {
-  const data = useActionData<typeof action>();
+  const navigate = useNavigate();
   const [mounted, setMounted] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
     setMounted(true);
@@ -25,38 +14,59 @@ export default function Login() {
 
   if (!mounted) return null;
 
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const formData = new FormData(event.currentTarget);
+    const email = formData.get("email");
+    const password = formData.get("password");
+
+    if (!email || !password) {
+      setError("Ingresa correo y contraseña.");
+      return;
+    }
+
+    setIsSubmitting(true);
+    setError(null);
+    setTimeout(() => {
+      setIsSubmitting(false);
+      navigate("/");
+    }, 300);
+  };
+
   return (
     <main className="min-h-screen flex items-center justify-center bg-zinc-50 dark:bg-zinc-950">
-      <Form
-        method="post"
+      <form
+        onSubmit={handleSubmit}
         className="w-full max-w-sm rounded-xl border p-6 bg-white dark:bg-zinc-900"
       >
-        <h1 className="text-xl font-bold mb-4">Login</h1>
+        <h1 className="text-xl font-bold mb-4">Ingreso administrativo</h1>
 
         <input
           name="email"
-          placeholder="Email"
+          placeholder="Correo"
           className="mb-3 w-full rounded border px-3 py-2 bg-white dark:bg-zinc-800"
         />
         <input
           name="password"
           type="password"
-          placeholder="Password"
+          placeholder="Contraseña"
           className="mb-4 w-full rounded border px-3 py-2 bg-white dark:bg-zinc-800"
         />
 
-        <button className="w-full rounded bg-zinc-900 text-white py-2 dark:bg-zinc-700">
-          Sign in
+        <button
+          className="w-full rounded bg-zinc-900 text-white py-2 dark:bg-zinc-700"
+          type="submit"
+          disabled={isSubmitting}
+        >
+          {isSubmitting ? "Validando..." : "Entrar"}
         </button>
 
-        {data?.error && (
-          <p className="mt-3 text-sm text-red-600">{data.error}</p>
-        )}
+        {error && <p className="mt-3 text-sm text-red-600">{error}</p>}
 
         <p className="mt-3 text-sm text-zinc-500">
-          Demo: demo@crypto.com / demo
+          Conecta el backend para validar credenciales.
         </p>
-      </Form>
+      </form>
     </main>
   );
 }
